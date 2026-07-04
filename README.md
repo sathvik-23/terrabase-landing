@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Terrabase — pre-launch site
 
-## Getting Started
+Marketing + waitlist site for **Terrabase**, the Supabase-compatible backend hosted on
+India-sovereign infrastructure. The primary goal of every page is one thing: convert
+visiting developers into **waitlist signups** ahead of a free public launch.
 
-First, run the development server:
+Built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4**,
+hand-rolled shadcn-style primitives, and **Framer Motion**. Dark-first, responsive,
+accessible, and SEO-complete.
+
+See [`DECISIONS.md`](./DECISIONS.md) for the design + architecture rationale.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+cp .env.example .env.local   # optional — see "Waitlist" below
+pnpm dev                     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command       | Description                          |
+| ------------- | ------------------------------------ |
+| `pnpm dev`    | Start the dev server (Turbopack)     |
+| `pnpm build`  | Production build                     |
+| `pnpm start`  | Serve the production build           |
+| `pnpm lint`   | Run ESLint                           |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+All are **optional in development**. Without them the waitlist endpoint still
+validates, rate-limits, and returns success — it simply skips email delivery.
 
-To learn more about Next.js, take a look at the following resources:
+| Variable             | Purpose                                                        |
+| -------------------- | -------------------------------------------------------------- |
+| `RESEND_API_KEY`     | Enables waitlist email delivery via [Resend](https://resend.com). |
+| `RESEND_AUDIENCE_ID` | Optional Resend audience to add waitlist contacts to.          |
+| `RESEND_FROM_EMAIL`  | Verified sender. Falls back to `onboarding@resend.dev`.        |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set the site's canonical URL in `lib/site.ts` (`url`) before deploying — it drives
+`metadataBase`, canonical tags, `sitemap.xml`, and `robots.txt`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Waitlist flow
 
-## Deploy on Vercel
+- **Form** — `components/waitlist/` (`WaitlistForm` + `useWaitlist` hook). Validates
+  client-side, then POSTs to the API and redirects to `/waitlist/confirmed`.
+- **Endpoint** — `app/api/waitlist/route.ts`: server-side zod validation, IP
+  rate-limiting, a honeypot field, graceful duplicate handling (never leaks whether an
+  email already exists), and Resend delivery via `lib/resend.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/                 Routes, API, metadata (robots, sitemap, OG image)
+components/
+  brand/             Logo, topographic motif, terminal chrome, code tokens
+  layout/            Nav, mobile nav, footer
+  motion/            FadeIn scroll-reveal
+  pages/             Shared interior-page building blocks
+  sections/          Landing-page sections (one folder each)
+  ui/                Button, Input, Container (shadcn-style)
+  waitlist/          Form + submission hook
+lib/                 site config, validation, rate limit, Resend, structured data
+```
+
+Every file is intentionally small and single-purpose (see `DECISIONS.md`).
+
+## Pages
+
+`/` landing · `/migrate` (full migration guide) · `/pricing` · `/docs` · `/about`
+· `/status` · `/blog` · `/privacy` · `/terms` · `/waitlist/confirmed` · custom `404`.
+
+## Deploy (Vercel)
+
+1. Push to a Git repo and import it into [Vercel](https://vercel.com/new).
+2. Add the `RESEND_*` environment variables in Project Settings (optional but needed
+   for real email delivery).
+3. Deploy. The framework preset, build command (`next build`), and output are detected
+   automatically.
+
+## A note on Supabase
+
+Terrabase is **compatible with** the Supabase client SDKs and is **not affiliated with
+or endorsed by Supabase**. "Supabase" is a trademark of its respective owner.
