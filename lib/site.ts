@@ -10,7 +10,7 @@ export const site = {
   founder: "Sathvik",
   studio: "Metawurks",
   location: "Bengaluru, India",
-  email: "hello@terrabase.dev",
+  email: "message@terrabase.in",
   twitter: "@terrabasedev",
   github: "https://github.com/terrabase",
 } as const;

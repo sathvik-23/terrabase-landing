@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { waitlistSchema, normalizeEmail } from "@/lib/validate-email";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { joinWaitlist } from "@/lib/resend";
+import { saveSignup } from "@/lib/waitlist-store";
 
 export const runtime = "nodejs";
 
@@ -38,7 +39,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true }, { status: 200 });
   }
 
-  await joinWaitlist(normalizeEmail(parsed.data.email));
+  const email = normalizeEmail(parsed.data.email);
+
+  // Persist for the admin dashboard, and (best-effort) mirror to Resend for the
+  // confirmation email. Neither failure should surface to the visitor.
+  await saveSignup(email, {
+    source: "landing",
+    userAgent: request.headers.get("user-agent") ?? undefined,
+  }).catch((err) => console.error("[waitlist] persist failed", err));
+
+  await joinWaitlist(email);
 
   // Always the same response — never leak whether the email already existed.
   return NextResponse.json({ ok: true }, { status: 200 });
