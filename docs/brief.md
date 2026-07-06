@@ -28,7 +28,7 @@ Key differentiators to weave through the copy:
 Do NOT imply any affiliation with, or endorsement by, Supabase. Terrabase is *compatible with* the Supabase client SDKs — position it as "works with the tools you already use," never as an official Supabase product. Avoid copying Supabase's exact logo, wordmark, or brand assets.
 
 **Domains:** terrabase.dev (primary), terrabase.in
-**Built by:** [Sathvik], solo founder, also runs Metawurks (a Bengaluru dev studio) — use for the "About" credibility.
+**Built by:** the team behind Metawurks (a Bengaluru dev studio) — use for the "About" credibility.
 
 ---
 

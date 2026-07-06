@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     "backend as a service",
     "Supabase compatible",
   ],
-  authors: [{ name: site.founder }],
-  creator: site.founder,
+  authors: [{ name: site.name }],
+  creator: site.name,
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -34,7 +34,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
-    creator: site.twitter,
   },
   robots: { index: true, follow: true },
   alternates: { canonical: site.url },

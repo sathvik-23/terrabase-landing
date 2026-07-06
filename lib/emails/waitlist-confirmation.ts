@@ -27,7 +27,7 @@ export function waitlistConfirmationEmail() {
               Read the migration guide
             </a>
             <p style="margin:28px 0 0;font-size:12px;color:#6f6860">
-              Built in Bengaluru. Hosted in India. — ${site.founder}, ${site.name}
+              Built in Bengaluru. Hosted in India. — The ${site.name} team
             </p>
           </td></tr>
         </table>
@@ -42,7 +42,7 @@ We'll email you once when your invite is ready. No spam in the meantime.
 ${site.name} is the Supabase-compatible backend hosted entirely in India.
 Migration guide: ${site.url}/migrate
 
-— ${site.founder}, ${site.name}`;
+— The ${site.name} team`;
 
   return { subject, html, text };
 }

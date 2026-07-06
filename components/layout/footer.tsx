@@ -2,11 +2,11 @@ import Link from "next/link";
 import { Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { LogoMark } from "@/components/layout/logo";
-import { XIcon, GithubIcon } from "@/components/brand/social-icons";
+import { GithubIcon } from "@/components/brand/social-icons";
 import { footerNav, site } from "@/lib/site";
 
+// X / LinkedIn intentionally omitted for now (site.twitter / site.linkedin are null).
 const social = [
-  { label: "X / Twitter", href: `https://twitter.com/${site.twitter.replace("@", "")}`, Icon: XIcon },
   { label: "GitHub", href: site.github, Icon: GithubIcon },
   { label: "Email", href: `mailto:${site.email}`, Icon: Mail },
 ];

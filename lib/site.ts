@@ -7,12 +7,13 @@ export const site = {
   tagline: "The Supabase-compatible backend, hosted in India.",
   description:
     "Terrabase is a Supabase-compatible, multi-tenant backend — Postgres, Auth, Storage, Realtime, and instant REST APIs — hosted entirely on India-sovereign infrastructure. Swap your SDK URL, not your code.",
-  founder: "Sathvik",
   studio: "Metawurks",
   location: "Bengaluru, India",
   email: "message@terrabase.in",
-  twitter: "@terrabasedev",
-  github: "https://github.com/terrabase",
+  github: "https://github.com/Terrabase-in",
+  // No public X / LinkedIn presence yet — kept null so the UI omits them.
+  twitter: null,
+  linkedin: null,
 } as const;
 
 export const navLinks = [

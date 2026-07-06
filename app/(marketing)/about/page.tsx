@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Why Terrabase exists: to keep Indian developers unblocked and sovereign. Built by Sathvik, solo founder behind the Bengaluru studio Metawurks.",
+    "Why Terrabase exists: to keep Indian developers unblocked and sovereign. Built by the team behind Metawurks, a Bengaluru development studio.",
 };
 
 export default function AboutPage() {
@@ -46,18 +46,19 @@ export default function AboutPage() {
           </p>
         </FadeIn>
 
-        <FadeIn>
+        <FadeIn className="space-y-5">
+          <h2 className="text-2xl font-semibold tracking-tight">Who&apos;s building it</h2>
           <div className="flex flex-col gap-5 rounded-2xl border border-border bg-surface/40 p-7 sm:flex-row sm:items-center">
             <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber to-accent text-2xl font-semibold text-accent-foreground">
-              {site.founder.charAt(0)}
+              {site.studio.charAt(0)}
             </div>
             <div>
-              <h3 className="text-lg font-medium tracking-tight">{site.founder}</h3>
-              <p className="text-sm text-accent">Solo founder, {site.name}</p>
+              <h3 className="text-lg font-medium tracking-tight">{site.studio}</h3>
+              <p className="text-sm text-accent">Independent studio · {site.location}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                {site.founder} also runs {site.studio}, a development studio in{" "}
-                {site.location}. Terrabase is built with the same hands-on, ship-it
-                ethos — close to the developers it serves.
+                Terrabase is built by the team behind {site.studio}, a development
+                studio in {site.location} — with the same hands-on, ship-it ethos,
+                close to the developers it serves.
               </p>
             </div>
           </div>

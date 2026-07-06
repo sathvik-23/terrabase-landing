@@ -10,8 +10,7 @@ export function organizationSchema(): Record<string, unknown> {
     description: site.description,
     email: site.email,
     foundingLocation: site.location,
-    founder: { "@type": "Person", name: site.founder },
-    sameAs: [site.github, `https://twitter.com/${site.twitter.replace("@", "")}`],
+    sameAs: [site.github],
   };
 }
 
